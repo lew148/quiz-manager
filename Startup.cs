@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using quizManager.Data.Repos;
+using quizManager.Data.Services;
 
 namespace quizManager
 {
@@ -21,6 +24,15 @@ namespace quizManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
+            services.AddSession(options => {  
+                options.IdleTimeout = TimeSpan.FromMinutes(5);  
+            });
+            services.AddHttpContextAccessor();
+
+            // DI Config
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepo, UserRepo>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -44,6 +56,8 @@ namespace quizManager
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseSession();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

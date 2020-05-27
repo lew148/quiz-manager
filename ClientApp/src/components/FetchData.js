@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { get } from '../Api';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -46,14 +47,14 @@ export class FetchData extends Component {
       <div>
         <h1 id="tabelLabel" >Weather forecast</h1>
         <p>This component demonstrates fetching data from the server.</p>
+        <p>{'<%= Session["lol"] %>'}</p>
         {contents}
       </div>
     );
   }
 
   async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    const response = await get('session');
+    this.setState({ session: response, loading: false });
   }
 }
