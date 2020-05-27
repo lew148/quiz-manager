@@ -17,6 +17,10 @@ code {
   font-size: 60px;
 }
 
-.submitButton {
+.centered-text {
   text-align: center;
+}
+
+.form-input {
+  margin: 1rem;
 }

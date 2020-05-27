@@ -1,4 +1,4 @@
-namespace quizManager.Data.Requests
+namespace quizManager.QuizManager.Requests
 {
     public class LoginRequest
     {

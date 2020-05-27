@@ -13,20 +13,23 @@ const Login = ({ history }) => {
     const { Form } = useForm({
         onSubmit: async (values) => {
             HandleSubmit(history, values)
-        },
-        debugForm: true
+        }
     });
 
     return (
         <div className="d-flex justify-content-center">
             <Form>
-                <span className="login-form-title p-5" >Login</span>
-                <TextField name="username" />
-                <TextField name="password" />
-                <div className="submitButton">
-                    <button type="submit">
-                        Submit
-                    </button>
+                <div className="centered-text">
+                    <span className="login-form-title" >Login</span>
+                </div>
+                <div className="form-input">
+                    <TextField name="username" type="text" />
+                </div>
+                <div className="form-input">
+                    <TextField name="password" type="password" />
+                </div>
+                <div className="centered-text">
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </div>
             </Form>
         </div>

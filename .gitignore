@@ -4,3 +4,5 @@ obj/
 /.idea/
 /quiz_manager.db
 /node_modules/
+/quiz_manager.db-shm
+/quiz_manager.db-wal

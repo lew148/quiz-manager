@@ -1,12 +1,5 @@
 namespace quizManager.Data.Models
-{
-    public enum Permission
-    {
-        Edit,
-        View,
-        Restricted
-    }
-
+{ 
     public class User
     {
         public int Id { get; set; }

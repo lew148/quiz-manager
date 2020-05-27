@@ -23,7 +23,7 @@ const App = () => {
   }, []);
 
   return (isLoading ? <div>Loading...</div> :
-    session.loggedIn ? (
+    session != null && session.loggedIn ? (
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />

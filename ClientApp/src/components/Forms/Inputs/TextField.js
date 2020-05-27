@@ -1,12 +1,12 @@
 import React from 'react';
 import { useField } from "react-form";
 
-const TextField = ({ name }) => {
+const TextField = ({ name, type }) => {
     const { getInputProps } = useField(name);
 
     return (
         <>
-            <input {...getInputProps()} type="text" placeholder={name} />
+            <input className="form-control" {...getInputProps()} type={type} placeholder={name} />
         </>
     );
 }

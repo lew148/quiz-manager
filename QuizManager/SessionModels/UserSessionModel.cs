@@ -1,6 +1,6 @@
 using quizManager.Data.Models;
 
-namespace quizManager.Data.SessionModels
+namespace quizManager.QuizManager.SessionModels
 {
     public class UserSessionModel
     {

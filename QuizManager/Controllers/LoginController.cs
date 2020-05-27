@@ -1,11 +1,8 @@
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using quizManager.Data.Repos;
-using quizManager.Data.Requests;
-using quizManager.Data.Services;
+using quizManager.QuizManager.Requests;
+using quizManager.QuizManager.Services;
 
-namespace quizManager.Controllers
+namespace quizManager.QuizManager.Controllers
 {
     [ApiController]
     [Route("/api/login")]

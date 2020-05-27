@@ -1,20 +1,22 @@
+using System;
 using System.Linq;
+using BCrypt.Net;
+using Microsoft.AspNetCore.Server.IIS;
 using quizManager.Data.Models;
-using quizManager.Data.Requests;
+using static BCrypt.Net.BCrypt;
 
 namespace quizManager.Data.Repos
 {
     public interface IUserRepo
     {
-        public User LoginUser(string username, string password);
+        public User GetUserByUsername(string username);
     }
 
-    public class UserRepo : Repository<User>, IUserRepo
+    public class UserRepo : Repo<User>, IUserRepo
     {
-        public User LoginUser(string username, string password)
+        public User GetUserByUsername(string username)
         {
-            var userWithUsername = objects.Single(u => u.Username.Equals(username) && u.Password.Equals(password));
-            return userWithUsername;
+           return Objects.Single(u => u.Username.Equals(username));
         }
     }
 }

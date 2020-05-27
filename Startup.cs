@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using quizManager.Data.Repos;
-using quizManager.Data.Services;
+using quizManager.QuizManager.Services;
 
 namespace quizManager
 {
@@ -33,7 +33,8 @@ namespace quizManager
             // DI Config
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepo, UserRepo>();
-
+            services.AddScoped<ISessionService, SessionService>();
+            
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
         }
