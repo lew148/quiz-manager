@@ -5,9 +5,7 @@ const TextField = ({ name, type }) => {
     const { getInputProps } = useField(name);
 
     return (
-        <>
-            <input className="form-control" {...getInputProps()} type={type} placeholder={name} />
-        </>
+        <input className="form-control" {...getInputProps()} type={type} placeholder={name} />
     );
 }
 

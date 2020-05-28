@@ -1,9 +1,5 @@
-using System;
 using System.Linq;
-using BCrypt.Net;
-using Microsoft.AspNetCore.Server.IIS;
 using quizManager.Data.Models;
-using static BCrypt.Net.BCrypt;
 
 namespace quizManager.Data.Repos
 {

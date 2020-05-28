@@ -1,18 +1,17 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { useForm } from "react-form";
 import { post } from '../../Api';
 import TextField from './Inputs/TextField';
 
-const HandleSubmit = async (history, values) => {
+const HandleSubmit = async (values) => {
     await post('login', values);
     window.location.reload();
 }
 
-const Login = ({ history }) => {
+const Login = () => {
     const { Form } = useForm({
         onSubmit: async (values) => {
-            HandleSubmit(history, values)
+            HandleSubmit(values)
         }
     });
 
@@ -29,11 +28,11 @@ const Login = ({ history }) => {
                     <TextField name="password" type="password" />
                 </div>
                 <div className="centered-text">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button className="btn btn-primary" type="submit">Submit</button>
                 </div>
             </Form>
         </div>
     );
 };
 
-export default withRouter(Login);
+export default Login;
