@@ -1,11 +1,17 @@
 using System.Linq;
+using quizManager.Data.Models;
 using quizManager.Data.Repos;
 
 namespace quizManager.QuizManager.Services
 {
+    public enum QuestionOrderUpdateType {
+        AddingQuestion,
+        RemovingQuestion
+    }
+
     public interface IQuestionOrderService
     {
-        public void UpdateQuestionOrdersForQuiz(int quizId, int orderPosition);
+        public void UpdateQuestionOrdersForQuiz(int quizId, int orderPosition, QuestionOrderUpdateType updateType);
         public int GetBiggestQuestionOrderNumberForQuiz(int quizId);
     }
 
@@ -19,14 +25,22 @@ namespace quizManager.QuizManager.Services
         }
 
 
-        public void UpdateQuestionOrdersForQuiz(int quizId, int orderPosition)
+        public void UpdateQuestionOrdersForQuiz(int quizId, int orderPosition, QuestionOrderUpdateType updateType)
         {
             var existingQuestionOrders =
                 questionOrderRepo.GetAllOrdersForQuizGreaterThanOrEqualToPosition(quizId, orderPosition);
             
             var updatedQuestionOrders = existingQuestionOrders.Select(qo =>
             {
-                qo.OrderNumber++;
+                switch (updateType)
+                {
+                    case QuestionOrderUpdateType.AddingQuestion:
+                        qo.OrderNumber++;
+                        break;
+                    case QuestionOrderUpdateType.RemovingQuestion:
+                        qo.OrderNumber--;
+                        break;
+                }
                 return qo;
             }).ToList(); // to list is required to stop evaluation weirdness
             

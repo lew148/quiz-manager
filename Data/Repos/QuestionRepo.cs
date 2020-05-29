@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using quizManager.Data.Models;
 
 namespace quizManager.Data.Repos
@@ -7,6 +8,8 @@ namespace quizManager.Data.Repos
     {
         public void AddQuestion(Question question);
         public int GetNumberOfQuestionsInQuiz(int quizId);
+        public void DeleteQuestion(Question question);
+        public Question GetQuestionById(int questionId);
     }
 
     public class QuestionRepo : Repo<Question>, IQuestionRepo
@@ -21,6 +24,19 @@ namespace quizManager.Data.Repos
         {
             return Objects
                 .Count(q => q.QuizId == quizId);
+        }
+
+        public void DeleteQuestion(Question question)
+        {
+            Context.Remove(question);
+            Context.SaveChanges();
+        }
+
+        public Question GetQuestionById(int questionId)
+        {
+            return Objects
+                .Include(q => q.QuestionOrder)
+                .SingleOrDefault(q => q.Id == questionId);
         }
     }
 }

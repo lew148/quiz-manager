@@ -9,6 +9,7 @@ namespace quizManager.QuizManager.Services
     public interface IQuestionService
     {
         public void AddQuestion(AddQuestionRequest request);
+        public void DeleteQuestion(int questionId);
     }
 
     public class QuestionService : IQuestionService
@@ -43,7 +44,7 @@ namespace quizManager.QuizManager.Services
                 CreateAnswerObject(request.InitialAnswerThree)
             };
             
-            if (request.OrderPosition == -1) // last
+            if (request.OrderPosition == -1) // question is last
             {
                 AddQuestionToLastPositionOfQuiz(request.Question, initialAnswers, request.QuizId);
             }
@@ -51,6 +52,23 @@ namespace quizManager.QuizManager.Services
             {
                 AddQuestionToSpecificPositionOfQuiz(request.Question, initialAnswers, request.QuizId, request.OrderPosition);
             }
+        }
+
+        public void DeleteQuestion(int questionId)
+        {
+            var question = questionRepo.GetQuestionById(questionId);
+
+            if (question == null)
+            {
+                throw new Exception("Question does not exist");
+            }
+
+            if (questionOrderService.GetBiggestQuestionOrderNumberForQuiz(question.QuizId) 
+                != question.QuestionOrder.Id) // question is not last
+            {
+                questionOrderService.UpdateQuestionOrdersForQuiz(question.QuizId, question.QuestionOrder.OrderNumber, QuestionOrderUpdateType.RemovingQuestion);
+            }
+            questionRepo.DeleteQuestion(question);
         }
 
         private void AddQuestionToLastPositionOfQuiz(string question, List<Answer> initialAnswers, int quizId)
@@ -68,7 +86,7 @@ namespace quizManager.QuizManager.Services
 
         private void AddQuestionToSpecificPositionOfQuiz(string question, List<Answer> initialAnswers, int quizId, int orderPosition)
         {
-            questionOrderService.UpdateQuestionOrdersForQuiz(quizId, orderPosition);
+            questionOrderService.UpdateQuestionOrdersForQuiz(quizId, orderPosition, QuestionOrderUpdateType.AddingQuestion);
             AddQuestionWithParams(question, initialAnswers, quizId, orderPosition);
         }
 

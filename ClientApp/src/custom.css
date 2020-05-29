@@ -4,6 +4,11 @@
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+.delete-button {
+  color: rgb(255, 28, 28);
+  border: none;
+  font-size: 0.85rem;
+}
 
 .centered-text {
   text-align: center;

@@ -32,21 +32,21 @@ const AddAnswerForm = ({ questions }) => {
 
     const questionOptions = constructQuestionOptions(questions);
 
-    return (
+    return (questionOptions.length !== 0 &&
         <Form className="quiz-form">
             <h5>Add Answer</h5>
             <p className="text-muted">A question can only have 3 - 5 answers. The question will not appear in the list if it already has the maximum amount</p>
             <div className="d-flex">
                 <div className="form-input-row" >
-                    <TextField name="answer" type="text" placeholder="Answer"/>
+                    <TextField name="answer" type="text" placeholder="Answer" />
                 </div>
                 <div className="form-input-row" >
                     <Select
-                            field="questionId"
-                            options={questionOptions}
-                            description="Select question number to add an answer to"
-                            defaultValue={questionOptions[0].value}
-                        />
+                        field="questionId"
+                        options={questionOptions}
+                        description="Select question number to add an answer to"
+                        defaultValue={questionOptions[0].value}
+                    />
                 </div>
                 <button className="btn btn-primary btn-sm" type="submit">Add</button>
             </div>

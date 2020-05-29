@@ -8,6 +8,7 @@ namespace quizManager.QuizManager.Services
     public interface IAnswerService
     {
         public void AddAnswer(AddAnswerRequest request);
+        public void DeleteAnswer(int answerId);
     }
 
     public class AnswerService : IAnswerService
@@ -31,6 +32,18 @@ namespace quizManager.QuizManager.Services
                 Description = request.Answer,
                 QuestionId = request.QuestionId
             });
+        }
+
+        public void DeleteAnswer(int answerId)
+        {
+            var answer = answerRepo.GetAnswerById(answerId);
+            
+            if (answer == null)
+            {
+                throw new Exception("Answer does not exist");
+            }
+            
+            answerRepo.DeleteAnswer(answer);
         }
     }
 }

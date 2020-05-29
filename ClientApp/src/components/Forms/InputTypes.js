@@ -1,5 +1,7 @@
 import React from 'react';
 import { useField, splitFormProps } from "react-form";
+import { post } from '../../Api';
+import { FaTrash } from 'react-icons/fa';
 
 export const TextField = ({ name, type, placeholder }) => {
     const { getInputProps } = useField(name);
@@ -56,5 +58,21 @@ export const SelectWithDefaultOption = (props) => {
                 </option>
             ))}
         </select>
+    );
+};
+
+export const DeleteButton = ({ confirmText, apiDeleteRoute }) => {
+
+    const handleClick = async () => {
+        // eslint-disable-next-line no-restricted-globals
+        var deleteComfirmed = confirm(confirmText)
+        if (deleteComfirmed) {
+            await post(apiDeleteRoute)
+            window.location.reload();
+        }
+    }
+
+    return (
+        <button type="button" onClick={handleClick} className="delete-button"><FaTrash /></button>
     );
 };

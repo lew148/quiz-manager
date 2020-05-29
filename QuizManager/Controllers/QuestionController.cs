@@ -22,5 +22,13 @@ namespace quizManager.QuizManager.Controllers
             questionService.AddQuestion(request);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("delete/{questionId}")]
+        public ActionResult DeleteQuestion(int questionId)
+        {
+            questionService.DeleteQuestion(questionId);
+            return Ok();
+        }
     }
 }
