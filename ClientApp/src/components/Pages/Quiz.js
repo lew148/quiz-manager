@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { get } from '../../Api';
 import AddQuestionForm from '../Forms/AddQuestionForm';
+import AddAnswerForm from '../Forms/AddAnswerForm';
 
 const sortByOrderNumber = (questions) => questions.sort((a, b) =>
     a.questionOrder.orderNumber - b.questionOrder.orderNumber);
@@ -25,17 +26,26 @@ const Quiz = () => {
             <div className="jumbotron">
                 <h1>{quiz.name}</h1>
                 <p>{quiz.description}</p>
-                <AddQuestionForm
-                    quizId={id}
-                    numberOfQuestions={quiz.questions.length}
-                />
+                <hr className="my-4"></hr>
+                <div className="add-forms">
+                    <AddQuestionForm
+                        quizId={id}
+                        numberOfQuestions={quiz.questions.length}
+                    />
+                    {(quiz.questions.length > 0) &&
+                        <AddAnswerForm
+                            quizId={id}
+                            questions={quiz.questions}
+                        />
+                    }
+                </div>
                 <hr className="my-4"></hr>
                 <ol type="1">
                     {sortByOrderNumber(quiz.questions).map(question => (<>
                         <li><strong>{question.description}</strong></li>
                         <ol type="A">
                             {question.answers.map(answer => (
-                                <li>{answer.description}</li>
+                                <li key={answer.id}>{answer.description}</li>
                             ))}
                         </ol>
                     </>))}

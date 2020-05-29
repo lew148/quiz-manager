@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from "react-form";
 import { post } from '../../Api';
-import { TextField, Select } from './InputTypes';
+import { TextField, SelectWithDefaultOption } from './InputTypes';
 
 const convertFromIndexToOptionText = (num) => num + 1;
 
-const constructQuestionOptions = (numberOfQuestions) => {
+const constructPositionOptions = (numberOfQuestions) => {
     var positions = [];
     for (var i = 0; i < numberOfQuestions; i++) {
         positions.push(i)
@@ -32,7 +32,7 @@ const AddQuestionForm = ({ quizId, numberOfQuestions }) => {
     });
 
     return (
-        <Form>
+        <Form className="quiz-form">
             <h5>Add Question</h5>
             <p className="text-muted">A question requires 3 initial answers, upon creation. You may add up to 5 after that.</p>
             <div className="d-flex">
@@ -41,9 +41,9 @@ const AddQuestionForm = ({ quizId, numberOfQuestions }) => {
                 </div>
                 {numberOfQuestions > 0 &&
                     <div className="form-input-row" >
-                        <Select
+                        <SelectWithDefaultOption
                             field="orderPosition"
-                            options={constructQuestionOptions(numberOfQuestions)}
+                            options={constructPositionOptions(numberOfQuestions)}
                             description="Select position to enter question"
                             defaultValue={-1}
                             defaultText="Last"
@@ -52,7 +52,7 @@ const AddQuestionForm = ({ quizId, numberOfQuestions }) => {
                     </div>
                 }
                 <div className="form-input-row" >
-                    <TextField 
+                    <TextField
                         name="InitialAnswerOne"
                         type="text"
                         placeholder="First Answer"

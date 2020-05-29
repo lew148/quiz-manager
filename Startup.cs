@@ -40,6 +40,8 @@ namespace quizManager
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             services.AddScoped<IQuestionOrderService, QuestionOrderService>();
             services.AddScoped<IQuestionOrderRepo, QuestionOrderRepo>();
+            services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<IAnswerRepo, AnswerRepo>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             {
