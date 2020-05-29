@@ -1,18 +1,18 @@
 import React from 'react';
 import { useField, splitFormProps } from "react-form";
 
-export const TextField = ({ name, type }) => {
+export const TextField = ({ name, type, placeholder }) => {
     const { getInputProps } = useField(name);
     return (
-        <input {...getInputProps()} className="form-control" type={type} placeholder={name} />
+        <input {...getInputProps()} className="form-control" type={type} placeholder={placeholder || name} />
     );
 };
 
 export const Select = (props) => {
-    const [field, fieldOptions, { description, defaultValue, defaultText, options, ...rest }] = splitFormProps(props);
+    const [field, fieldOptions, { description, defaultValue, defaultText, className, options, ...rest }] = splitFormProps(props);
 
     const {
-        value = null,
+        value = defaultValue,
         setValue
     } = useField(field, fieldOptions)
 
@@ -21,7 +21,7 @@ export const Select = (props) => {
     }
 
     return (
-        <select {...rest} className="custom-select" value={value} onChange={handleSelectChange}>
+        <select {...rest} className={`custom-select${className ? ` ${className}` : ""}`} value={value} onChange={handleSelectChange}>
             <option disabled value={null} >--{description}--</option>
             <option value={defaultValue}>{defaultText}</option>
             {options.map(o => (

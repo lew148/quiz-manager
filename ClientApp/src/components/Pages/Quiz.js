@@ -30,10 +30,10 @@ const Quiz = () => {
                     numberOfQuestions={quiz.questions.length}
                 />
                 <hr className="my-4"></hr>
-                <ol type="A">
+                <ol type="1">
                     {sortByOrderNumber(quiz.questions).map(question => (<>
                         <li><strong>{question.description}</strong></li>
-                        <ol>
+                        <ol type="A">
                             {question.answers.map(answer => (
                                 <li>{answer.description}</li>
                             ))}

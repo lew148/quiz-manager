@@ -19,7 +19,7 @@ const LoginForm = () => {
         <div className="d-flex justify-content-center">
             <Form>
                 <div className="centered-text">
-                    <span className="login-form-title" >Login</span>
+                    <h1>Login</h1>
                 </div>
                 <div className="form-input">
                     <TextField name="Username" type="text" />
