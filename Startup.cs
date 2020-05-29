@@ -31,12 +31,16 @@ namespace quizManager
             services.AddHttpContextAccessor();
 
             // DI Config
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<IQuizService, QuizService>();
             services.AddScoped<IQuizRepo, QuizRepo>();
-            
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IQuestionRepo, QuestionRepo>();
+            services.AddScoped<IQuestionOrderService, QuestionOrderService>();
+            services.AddScoped<IQuestionOrderRepo, QuestionOrderRepo>();
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

@@ -8,17 +8,17 @@ namespace quizManager.QuizManager.Controllers
     [Route("/api/login")]
     public class LoginController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly ILoginService loginService;
 
-        public LoginController(IUserService userService)
+        public LoginController(ILoginService loginService)
         {
-            this.userService = userService;
+            this.loginService = loginService;
         }
 
         [HttpPost]
-        public IActionResult Login([FromForm] LoginRequest request)
+        public ActionResult Login([FromForm] LoginRequest request)
         {
-            userService.Login(request);
+            loginService.Login(request);
             return Ok();
         }
     }

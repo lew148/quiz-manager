@@ -21,8 +21,8 @@ namespace quizManager.Data.Repos
         public Quiz GetQuiz(int id)
         {
             return Objects
-                .Include(quiz => quiz.Questions)
-                .ThenInclude(question => question.Answers)
+                .Include(quiz => quiz.Questions).ThenInclude(question => question.Answers)
+                .Include(quiz => quiz.Questions).ThenInclude(question => question.QuestionOrder)
                 .Single(q => q.Id == id);
         }
     }

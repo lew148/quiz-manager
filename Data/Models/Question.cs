@@ -10,6 +10,8 @@ namespace quizManager.Data.Models
         public int QuizId { get; set; }
         public Quiz Quiz { get; set; }
         
+        public QuestionOrder QuestionOrder { get; set; }
+
         public List<Answer> Answers { get; set; }
     }
 }

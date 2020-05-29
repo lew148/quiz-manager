@@ -4,7 +4,7 @@ import Layout from './components/Layout/Layout';
 import Home from './components/Pages/Home';
 import Quiz from './components/Pages/Quiz';
 import { get } from './Api';
-import Login from './components/Forms/Login';
+import LoginForm from './components/Forms/LoginForm';
 
 import './custom.css'
 
@@ -27,7 +27,7 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route path='/quiz/:id' component={Quiz} />
       </Layout>
-    ) : <Login />
+    ) : <LoginForm />
   );
 };
 

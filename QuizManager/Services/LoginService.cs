@@ -9,17 +9,17 @@ using static BCrypt.Net.BCrypt;
 
 namespace quizManager.QuizManager.Services
 {
-    public interface IUserService
+    public interface ILoginService
     {
         void Login(LoginRequest request);
     }
 
-    public class UserService : IUserService
+    public class LoginService : ILoginService
     {
         private readonly IUserRepo userRepo;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UserService(IUserRepo userRepo, IHttpContextAccessor httpContextAccessor)
+        public LoginService(IUserRepo userRepo, IHttpContextAccessor httpContextAccessor)
         {
             this.userRepo = userRepo;
             this.httpContextAccessor = httpContextAccessor;

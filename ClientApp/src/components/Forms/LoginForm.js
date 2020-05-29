@@ -1,14 +1,14 @@
 import React from 'react';
 import { useForm } from "react-form";
 import { post } from '../../Api';
-import TextField from './Inputs/TextField';
+import { TextField } from './InputTypes';
 
 const HandleSubmit = async (values) => {
     await post('login', values);
     window.location.reload();
 }
 
-const Login = () => {
+const LoginForm = () => {
     const { Form } = useForm({
         onSubmit: async (values) => {
             HandleSubmit(values)
@@ -22,10 +22,10 @@ const Login = () => {
                     <span className="login-form-title" >Login</span>
                 </div>
                 <div className="form-input">
-                    <TextField name="username" type="text" />
+                    <TextField name="Username" type="text" />
                 </div>
                 <div className="form-input">
-                    <TextField name="password" type="password" />
+                    <TextField name="Password" type="password" />
                 </div>
                 <div className="centered-text">
                     <button className="btn btn-primary" type="submit">Submit</button>
@@ -35,4 +35,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginForm;
