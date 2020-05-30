@@ -8,6 +8,7 @@ namespace quizManager.Data.Repos
         public Answer GetAnswerById(int answerId);
         public void AddAnswer(Answer answer);
         public void DeleteAnswer(Answer answer);
+        public void EditAnswer(Answer answer);
     }
 
     public class AnswerRepo : Repo<Answer> , IAnswerRepo
@@ -26,6 +27,12 @@ namespace quizManager.Data.Repos
         public void DeleteAnswer(Answer answer)
         {
             Context.Remove(answer);
+            Context.SaveChanges();
+        }
+
+        public void EditAnswer(Answer answer)
+        {
+            Context.Update(answer);
             Context.SaveChanges();
         }
     }

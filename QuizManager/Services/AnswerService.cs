@@ -1,4 +1,3 @@
-using System;
 using quizManager.Data.Models;
 using quizManager.Data.Repos;
 using quizManager.QuizManager.Requests;
@@ -9,6 +8,7 @@ namespace quizManager.QuizManager.Services
     {
         public void AddAnswer(AddAnswerRequest request);
         public void DeleteAnswer(int answerId);
+        public void EditAnswer(int answerId, EditRequest request);
     }
 
     public class AnswerService : IAnswerService
@@ -22,11 +22,7 @@ namespace quizManager.QuizManager.Services
 
         public void AddAnswer(AddAnswerRequest request)
         {
-            if (request.Answer == null)
-            {
-                throw new Exception("Answer is null");
-            }
-
+            GeneralHelpers.ThrowIfNull(request.Answer);
             answerRepo.AddAnswer(new Answer
             {
                 Description = request.Answer,
@@ -37,13 +33,19 @@ namespace quizManager.QuizManager.Services
         public void DeleteAnswer(int answerId)
         {
             var answer = answerRepo.GetAnswerById(answerId);
-            
-            if (answer == null)
-            {
-                throw new Exception("Answer does not exist");
-            }
-            
+            GeneralHelpers.ThrowIfNull(answer);
             answerRepo.DeleteAnswer(answer);
+        }
+
+        public void EditAnswer(int answerId, EditRequest request)
+        {
+            var subjectAnswer = answerRepo.GetAnswerById(answerId);
+            
+            GeneralHelpers.ThrowIfNull(subjectAnswer);
+
+            subjectAnswer.Description = request.NewDescription;
+            
+            answerRepo.EditAnswer(subjectAnswer);
         }
     }
 }

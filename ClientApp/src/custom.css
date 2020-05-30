@@ -4,10 +4,18 @@
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.edit-button {
+  border: none;
+  font-size: 1rem;
+  background: none;
+}
+
 .delete-button {
   color: rgb(255, 28, 28);
   border: none;
-  font-size: 0.85rem;
+  font-size: 1rem;
+  background: none;
 }
 
 .centered-text {
@@ -28,4 +36,9 @@
 
 .quiz-form {
   margin-top: 1rem;
+}
+
+.edit-input {
+  height: 1.6rem;
+  margin-left: 1rem;
 }

@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 import { get } from '../../Api';
 import AddQuestionForm from '../Forms/AddQuestionForm';
 import AddAnswerForm from '../Forms/AddAnswerForm';
+import EditQuestionForm from '../Forms/OLDEditQuestionForm';
+import EditAnswerForm from '../Forms/OLDEditAnswerForm';
 import { DeleteButton } from '../Forms/InputTypes'
+import EditForm from '../Forms/EditForm';
 
 const sortByOrderNumber = (questions) => questions.sort((a, b) =>
     a.questionOrder.orderNumber - b.questionOrder.orderNumber);
@@ -35,7 +38,6 @@ const Quiz = () => {
                     />
                     {(quiz.questions.length > 0) &&
                         <AddAnswerForm
-                            quizId={id}
                             questions={quiz.questions}
                         />
                     }
@@ -43,28 +45,38 @@ const Quiz = () => {
                 <hr className="my-4"></hr>
                 <ol type="1">
                     {sortByOrderNumber(quiz.questions).map(question => (<>
-                        <div className="d-flex">
-                            <div className="form-input-row">
-                                <li><strong>{question.description}</strong></li>
+                        <li key={question.id}>
+                            <div className="d-flex">
+                                <div className="form-input-row" >{question.description}</div>
+                                <EditForm
+                                    objectId={question.id}
+                                    apiEditRoute="question/edit"
+                                    placeholder="Edit Question"
+                                />
+                                <DeleteButton
+                                    confirmText="Are you sure you want to delete this question?"
+                                    apiDeleteRoute={`question/delete/${question.id}`}
+                                />
                             </div>
-                            <DeleteButton
-                                confirmText="Are you sure you want to delete this question?"
-                                apiDeleteRoute={`question/delete/${question.id}`}
-                            />
-                        </div>
+                        </li>
                         <ol type="A">
                             {question.answers.map(answer => (
-                                <div className="d-flex">
-                                    <div className="form-input-row">
-                                        <li key={answer.id}>{answer.description}</li>
-                                    </div>
-                                    {question.answers.length > 3 &&
-                                        <DeleteButton
-                                            confirmText="Are you sure you want to delete this answer?"
-                                            apiDeleteRoute={`answer/delete/${answer.id}`}
+                                <li key={answer.id}>
+                                    <div className="d-flex">
+                                        <div className="form-input-row" >{answer.description}</div>
+                                        <EditForm
+                                            objectId={answer.id}
+                                            apiEditRoute="answer/edit"
+                                            placeholder="Edit Answer"
                                         />
-                                    }
-                                </div>
+                                        {question.answers.length > 3 &&
+                                            <DeleteButton
+                                                confirmText="Are you sure you want to delete this answer?"
+                                                apiDeleteRoute={`answer/delete/${answer.id}`}
+                                            />
+                                        }
+                                    </div>
+                                </li>
                             ))}
                         </ol>
                     </>))}

@@ -29,10 +29,8 @@ namespace quizManager.QuizManager.Services
         {
             var user = userRepo.GetUserByUsername(request.Username);
 
-            if (user == null || !Verify(request.Password, user.Password)) // single user with username and correct password doesnt exist
-            {
-                throw new Exception("User does not exist");
-            }
+            GeneralHelpers.ThrowIfNull(user);
+            if (!Verify(request.Password, user.Password)) throw new Exception("Username/Password is wrong");
 
             var userSessionModel = new UserSessionModel
             {
@@ -40,8 +38,9 @@ namespace quizManager.QuizManager.Services
                 LoggedIn = true,
                 Permission = user.Permission
             };
-                    
-            httpContextAccessor.HttpContext.Session.SetString(SessionKeys.UserSessionKey, JsonConvert.SerializeObject(userSessionModel));
+
+            httpContextAccessor.HttpContext.Session.SetString(SessionKeys.UserSessionKey,
+                JsonConvert.SerializeObject(userSessionModel));
         }
     }
 }

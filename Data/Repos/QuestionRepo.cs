@@ -10,6 +10,7 @@ namespace quizManager.Data.Repos
         public int GetNumberOfQuestionsInQuiz(int quizId);
         public void DeleteQuestion(Question question);
         public Question GetQuestionById(int questionId);
+        public void EditQuestion(Question question);
     }
 
     public class QuestionRepo : Repo<Question>, IQuestionRepo
@@ -37,6 +38,12 @@ namespace quizManager.Data.Repos
             return Objects
                 .Include(q => q.QuestionOrder)
                 .SingleOrDefault(q => q.Id == questionId);
+        }
+
+        public void EditQuestion(Question question)
+        {
+            Context.Update(question);
+            Context.SaveChanges();
         }
     }
 }

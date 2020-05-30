@@ -30,5 +30,13 @@ namespace quizManager.QuizManager.Controllers
             questionService.DeleteQuestion(questionId);
             return Ok();
         }
+        
+        [HttpPost]
+        [Route("edit/{questionId}")]
+        public ActionResult EditQuestion(int questionId, [FromForm] EditRequest request)
+        {
+            questionService.EditQuestion(questionId, request);
+            return Ok();
+        }
     }
 }

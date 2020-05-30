@@ -29,7 +29,7 @@ namespace quizManager.QuizManager.Services
         {
             var existingQuestionOrders =
                 questionOrderRepo.GetAllOrdersForQuizGreaterThanOrEqualToPosition(quizId, orderPosition);
-            
+
             var updatedQuestionOrders = existingQuestionOrders.Select(qo =>
             {
                 switch (updateType)

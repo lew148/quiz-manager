@@ -8,7 +8,7 @@ const convertFromIndexToOptionText = (num) => num + 1;
 const constructQuestionOptions = (questions) => {
     var questionOptions = [];
     for (var i = 0; i < questions.length; i++) {
-        if (questions[i].answers.length >= 5) continue; // if it has 5 questions (or more), don't appear in the list
+        if (questions[i].answers.length >= 5) continue; // if it has 5 answers (or more), don't appear in the list
 
         questionOptions.push({
             value: questions[i].id,
