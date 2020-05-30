@@ -8,7 +8,9 @@ namespace quizManager.Data.Repos
     public interface IQuizRepo
     {
         public IEnumerable<Quiz> GetAllQuizzes();
-        public Quiz GetQuiz(int id);
+        public Quiz GetQuizById(int id);
+        public void AddQuiz(Quiz quiz);
+        public void DeleteQuiz(Quiz quiz);
     }
 
     public class QuizRepo : Repo<Quiz>, IQuizRepo
@@ -18,12 +20,24 @@ namespace quizManager.Data.Repos
             return Objects;
         }
 
-        public Quiz GetQuiz(int id)
+        public Quiz GetQuizById(int id)
         {
             return Objects
                 .Include(quiz => quiz.Questions).ThenInclude(question => question.Answers)
                 .Include(quiz => quiz.Questions).ThenInclude(question => question.QuestionOrder)
-                .Single(q => q.Id == id);
+                .SingleOrDefault(q => q.Id == id);
+        }
+
+        public void AddQuiz(Quiz quiz)
+        {
+            Context.Add(quiz);
+            Context.SaveChanges();
+        }
+
+        public void DeleteQuiz(Quiz quiz)
+        {
+            Context.Remove(quiz);
+            Context.SaveChanges();
         }
     }
 }

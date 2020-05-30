@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField, splitFormProps } from "react-form";
 import { post } from '../../Api';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPlus } from 'react-icons/fa';
 
 const returnAdditionalClassNameIfExists = (additionalClassName) => {
     return additionalClassName ? ` ${additionalClassName}` : ""
@@ -67,7 +67,6 @@ export const SelectWithDefaultOption = (props) => {
 };
 
 export const DeleteButton = ({ confirmText, apiDeleteRoute }) => {
-
     const handleClick = async () => {
         // eslint-disable-next-line no-restricted-globals
         var deleteComfirmed = confirm(confirmText)
@@ -81,3 +80,6 @@ export const DeleteButton = ({ confirmText, apiDeleteRoute }) => {
         <button type="button" onClick={handleClick} className="delete-button"><FaTrash /></button>
     );
 };
+
+export const AddButton = () => <button className="btn btn-success btn-sm" type="submit"><FaPlus /></button>
+                

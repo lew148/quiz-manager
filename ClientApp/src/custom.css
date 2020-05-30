@@ -42,3 +42,11 @@
   height: 1.6rem;
   margin-left: 1rem;
 }
+
+.content-card {
+  background-color: aliceblue;
+}
+
+.quiz-title {
+  margin: 0
+}

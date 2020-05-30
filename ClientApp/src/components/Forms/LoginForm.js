@@ -4,7 +4,7 @@ import { post } from '../../Api';
 import { TextField } from './InputTypes';
 
 const HandleSubmit = async (values) => {
-    await post('login', values);
+    await post('account/login', values);
     window.location.reload();
 }
 

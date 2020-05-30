@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from "react-form";
 import { post } from '../../Api';
-import { TextField, SelectWithDefaultOption } from './InputTypes';
+import { TextField, SelectWithDefaultOption, AddButton } from './InputTypes';
 
 const convertFromIndexToOptionText = (num) => num + 1;
 
@@ -72,7 +72,7 @@ const AddQuestionForm = ({ quizId, numberOfQuestions }) => {
                         placeholder="Third Answer"
                     />
                 </div>
-                <button className="btn btn-primary btn-sm" type="submit">Add</button>
+                <AddButton />
             </div>
         </Form>
     );

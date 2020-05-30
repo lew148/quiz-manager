@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import { get } from '../../Api';
 import AddQuestionForm from '../Forms/AddQuestionForm';
 import AddAnswerForm from '../Forms/AddAnswerForm';
-import EditQuestionForm from '../Forms/OLDEditQuestionForm';
-import EditAnswerForm from '../Forms/OLDEditAnswerForm';
 import { DeleteButton } from '../Forms/InputTypes'
 import EditForm from '../Forms/EditForm';
 
@@ -27,7 +25,7 @@ const Quiz = () => {
 
     return (loading ? <p>Loading Quiz...</p>
         : (
-            <div className="jumbotron">
+            <div className="jumbotron content-card">
                 <h1>{quiz.name}</h1>
                 <p>{quiz.description}</p>
                 <hr className="my-4"></hr>

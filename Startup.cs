@@ -31,7 +31,7 @@ namespace quizManager
             services.AddHttpContextAccessor();
 
             // DI Config
-            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<IQuizService, QuizService>();

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using quizManager.Data.Models;
 using quizManager.Data.Repos;
+using quizManager.QuizManager.Requests;
 using quizManager.QuizManager.Responses;
 
 namespace quizManager.QuizManager.Services
@@ -10,6 +11,8 @@ namespace quizManager.QuizManager.Services
     {
         public IEnumerable<QuizListResponse> GetAllQuizzes();
         public Quiz GetQuiz(int id);
+        public void AddQuiz(AddQuizRequest request);
+        public void DeleteQuiz(int quizId);
     }
 
     public class QuizService : IQuizService
@@ -23,7 +26,11 @@ namespace quizManager.QuizManager.Services
 
         public IEnumerable<QuizListResponse> GetAllQuizzes()
         {
-            return quizRepo.GetAllQuizzes().Select(q => new QuizListResponse
+            var quizzes = quizRepo.GetAllQuizzes().ToList();
+            
+            GeneralHelpers.ThrowIfAnyAreNull(quizzes);
+            
+            return quizzes.Select(q => new QuizListResponse
             {
                 Id = q.Id,
                 Description = q.Description,
@@ -33,7 +40,25 @@ namespace quizManager.QuizManager.Services
 
         public Quiz GetQuiz(int id)
         {
-            return quizRepo.GetQuiz(id);
+            var quiz = quizRepo.GetQuizById(id);
+            GeneralHelpers.ThrowIfNull(quiz);
+            return quiz;
+        }
+
+        public void AddQuiz(AddQuizRequest request)
+        {
+            quizRepo.AddQuiz(new Quiz
+            {
+                Name = request.Name,
+                Description = request.Description
+            });
+        }
+
+        public void DeleteQuiz(int quizId)
+        {
+            var subjectQuiz = quizRepo.GetQuizById(quizId);
+            GeneralHelpers.ThrowIfNull(subjectQuiz);
+            quizRepo.DeleteQuiz(subjectQuiz);
         }
     }
 }

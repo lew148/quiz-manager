@@ -38,7 +38,7 @@ namespace quizManager.QuizManager.Services
                     Permission = sessionModel.Permission
                 };
             }
-            catch (ArgumentNullException) { }
+            catch (Exception) { }
 
             return response;
         }

@@ -9,17 +9,18 @@ using static BCrypt.Net.BCrypt;
 
 namespace quizManager.QuizManager.Services
 {
-    public interface ILoginService
+    public interface IAccountService
     {
         void Login(LoginRequest request);
+        void Logout();
     }
 
-    public class LoginService : ILoginService
+    public class AccountService : IAccountService
     {
         private readonly IUserRepo userRepo;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public LoginService(IUserRepo userRepo, IHttpContextAccessor httpContextAccessor)
+        public AccountService(IUserRepo userRepo, IHttpContextAccessor httpContextAccessor)
         {
             this.userRepo = userRepo;
             this.httpContextAccessor = httpContextAccessor;
@@ -41,6 +42,11 @@ namespace quizManager.QuizManager.Services
 
             httpContextAccessor.HttpContext.Session.SetString(SessionKeys.UserSessionKey,
                 JsonConvert.SerializeObject(userSessionModel));
+        }
+
+        public void Logout()
+        {
+            httpContextAccessor.HttpContext.Session.SetString(SessionKeys.UserSessionKey, "");
         }
     }
 }
