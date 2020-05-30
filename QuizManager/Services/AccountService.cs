@@ -36,7 +36,6 @@ namespace quizManager.QuizManager.Services
             var userSessionModel = new UserSessionModel
             {
                 Id = user.Id,
-                LoggedIn = true,
                 Permission = user.Permission
             };
 

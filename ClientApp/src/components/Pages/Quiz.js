@@ -5,11 +5,12 @@ import AddQuestionForm from '../Forms/AddQuestionForm';
 import AddAnswerForm from '../Forms/AddAnswerForm';
 import { DeleteButton } from '../Forms/InputTypes'
 import EditForm from '../Forms/EditForm';
+import { Permissions } from '../../shared/Constants';
 
 const sortByOrderNumber = (questions) => questions.sort((a, b) =>
     a.questionOrder.orderNumber - b.questionOrder.orderNumber);
 
-const Quiz = () => {
+const Quiz = ({ permission }) => {
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [quiz, setQuiz] = useState(null);
@@ -29,54 +30,68 @@ const Quiz = () => {
                 <h1>{quiz.name}</h1>
                 <p>{quiz.description}</p>
                 <hr className="my-4"></hr>
-                <div className="add-forms">
-                    <AddQuestionForm
-                        quizId={id}
-                        numberOfQuestions={quiz.questions.length}
-                    />
-                    {(quiz.questions.length > 0) &&
-                        <AddAnswerForm
-                            questions={quiz.questions}
-                        />
-                    }
-                </div>
-                <hr className="my-4"></hr>
+                {permission === Permissions.Edit &&
+                    <>
+                        <div className="add-forms">
+                            <AddQuestionForm
+                                quizId={id}
+                                numberOfQuestions={quiz.questions.length}
+                            />
+                            {(quiz.questions.length > 0) &&
+                                <AddAnswerForm
+                                    questions={quiz.questions}
+                                />
+                            }
+                        </div>
+                        <hr className="my-4"></hr>
+                    </>
+                }
                 <ol type="1">
                     {sortByOrderNumber(quiz.questions).map(question => (<>
                         <li key={question.id}>
                             <div className="d-flex">
                                 <div className="form-input-row" >{question.description}</div>
-                                <EditForm
-                                    objectId={question.id}
-                                    apiEditRoute="question/edit"
-                                    placeholder="Edit Question"
-                                />
-                                <DeleteButton
-                                    confirmText="Are you sure you want to delete this question?"
-                                    apiDeleteRoute={`question/delete/${question.id}`}
-                                />
+                                {permission === Permissions.Edit &&
+                                    <>
+                                        <EditForm
+                                            objectId={question.id}
+                                            apiEditRoute="question/edit"
+                                            placeholder="Edit Question"
+                                        />
+                                        <DeleteButton
+                                            confirmText="Are you sure you want to delete this question?"
+                                            apiDeleteRoute={`question/delete/${question.id}`}
+                                        />
+                                    </>
+                                }
                             </div>
                         </li>
-                        <ol type="A">
-                            {question.answers.map(answer => (
-                                <li key={answer.id}>
-                                    <div className="d-flex">
-                                        <div className="form-input-row" >{answer.description}</div>
-                                        <EditForm
-                                            objectId={answer.id}
-                                            apiEditRoute="answer/edit"
-                                            placeholder="Edit Answer"
-                                        />
-                                        {question.answers.length > 3 &&
-                                            <DeleteButton
-                                                confirmText="Are you sure you want to delete this answer?"
-                                                apiDeleteRoute={`answer/delete/${answer.id}`}
-                                            />
-                                        }
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>
+                        {permission < Permissions.Restricted &&
+                            <ol type="A">
+                                {question.answers.map(answer => (
+                                    <li key={answer.id}>
+                                        <div className="d-flex">
+                                            <div className="form-input-row" >{answer.description}</div>
+                                            {permission === Permissions.Edit &&
+                                                <>
+                                                    <EditForm
+                                                        objectId={answer.id}
+                                                        apiEditRoute="answer/edit"
+                                                        placeholder="Edit Answer"
+                                                    />
+                                                    {question.answers.length > 3 &&
+                                                        <DeleteButton
+                                                            confirmText="Are you sure you want to delete this answer?"
+                                                            apiDeleteRoute={`answer/delete/${answer.id}`}
+                                                        />
+                                                    }
+                                                </>
+                                            }
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>
+                        }
                     </>))}
                 </ol>
             </div>

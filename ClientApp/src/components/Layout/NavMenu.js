@@ -32,7 +32,8 @@ export class NavMenu extends Component {
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
-                <NavItem>
+                <NavItem className="d-flex">
+                  <NavLink tag={Link} className="text-dark form-input-row" to="/">Home</NavLink>
                   <LogoutButton />
                 </NavItem>
               </ul>

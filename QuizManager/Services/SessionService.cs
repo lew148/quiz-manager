@@ -34,7 +34,6 @@ namespace quizManager.QuizManager.Services
                 response = new UserSessionResponse
                 {
                     Id = sessionModel.Id,
-                    LoggedIn = sessionModel.LoggedIn,
                     Permission = sessionModel.Permission
                 };
             }

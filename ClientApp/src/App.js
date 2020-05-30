@@ -22,10 +22,10 @@ const App = () => {
   }, []);
 
   return (loading ? <div>Loading...</div> :
-    session != null && session.loggedIn ? (
+    session != null && session.id ? (
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/quiz/:id' component={Quiz} />
+        <Route exact path='/' component={() => <Home permission={session.permission} />} />
+        <Route path='/quiz/:id' component={() => <Quiz permission={session.permission} />} />
       </Layout>
     ) : <LoginForm />
   );

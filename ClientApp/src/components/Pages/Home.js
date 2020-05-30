@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { get } from '../../Api';
 import AddQuizForm from '../Forms/AddQuizForm';
 import { DeleteButton } from '../Forms/InputTypes';
+import { Permissions } from '../../shared/Constants';
 
-const Home = ({ history }) => {
+const Home = ({ history, permission }) => {
   const [loading, setLoading] = useState(true);
   const [quizzes, setQuizzes] = useState(null);
 
@@ -23,17 +24,21 @@ const Home = ({ history }) => {
 
   return (loading ? <div>Loading...</div>
     : <div>
-      <AddQuizForm />
+      {permission === Permissions.Edit &&
+        <AddQuizForm />
+      }
       <hr className="my-4"></hr>
       {quizzes.map(q => (
         <div className="card m-3">
           <div className="card-body content-card">
             <div className="d-flex">
               <h5 className="card-title quiz-title">{q.name}</h5>
-              <DeleteButton
-                confirmText="Are you sure you want to delete this quiz?"
-                apiDeleteRoute={`quiz/delete/${q.id}`}
-              />
+              {permission === Permissions.Edit &&
+                <DeleteButton
+                  confirmText="Are you sure you want to delete this quiz?"
+                  apiDeleteRoute={`quiz/delete/${q.id}`}
+                />
+              }
             </div>
             <hr className="my-4"></hr>
             <p className="card-text">{q.description}</p>
